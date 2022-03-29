@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">FlowLite</string>
+    <string name="pkg_info">剩余：%s 已用：%s/%s</string>
+</resources>
