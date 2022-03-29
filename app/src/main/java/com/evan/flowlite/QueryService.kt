@@ -177,7 +177,16 @@ class QueryService : Service() {
     }
 
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
-        doQuery()
+        isQueryRunning = true
+        refresh()
+        Toast.makeText(this, "time:${ConfigConst.queryTime}", Toast.LENGTH_SHORT).show()
+        handle.postDelayed(object :Runnable{
+            override fun run() {
+                Toast.makeText(this@QueryService, "refrshing", Toast.LENGTH_SHORT).show()
+                refresh()
+                handle.postDelayed(this,ConfigConst.queryTime)
+            }
+        }, ConfigConst.queryTime)
         startForeground(
             10010, NotificationHelper.getNotification(
                 title = "正在获取流量信息",
@@ -189,15 +198,6 @@ class QueryService : Service() {
         return START_STICKY
     }
 
-    private fun doQuery() {
-        Thread {
-            isQueryRunning = true
-            do {
-                doNet()
-                Thread.sleep(ConfigConst.queryTime)
-            } while (!isDestroy)
-        }.start()
-    }
 
 
     private fun doNet() {
