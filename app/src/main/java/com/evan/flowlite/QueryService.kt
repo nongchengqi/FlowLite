@@ -150,6 +150,7 @@ class QueryService : Service() {
             mUpdateListener?.invoke(mFlowInfoBean)
             val used= AppPref.usedFlow
             val jump = if (used == "0"){
+                AppPref.usedFlow = bean.useResFlow
                 "0"
             }else {
                 ((bean.useResFlow.toFloatOrNull()?:0f) - used.toFloat()).toString()
