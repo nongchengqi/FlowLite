@@ -25,8 +25,12 @@ class QueryService : Service() {
     private val handle = Handler(
         Looper.getMainLooper()
     ) { msg ->
-        decodeFlowInfo(msg.obj as? Pair<Boolean, String>)
-        true
+        if (msg.what == 10010) {
+            decodeFlowInfo(msg.obj as? Pair<Boolean, String>)
+            true
+        } else {
+            false
+        }
     }
 
     private val networkCallback = object : ConnectivityManager.NetworkCallback() {
@@ -179,10 +183,8 @@ class QueryService : Service() {
     override fun onStartCommand(intent: Intent?, flags: Int, startId: Int): Int {
         isQueryRunning = true
         refresh()
-        Toast.makeText(this, "time:${ConfigConst.queryTime}", Toast.LENGTH_SHORT).show()
         handle.postDelayed(object :Runnable{
             override fun run() {
-                Toast.makeText(this@QueryService, "refrshing", Toast.LENGTH_SHORT).show()
                 refresh()
                 handle.postDelayed(this,ConfigConst.queryTime)
             }
@@ -226,6 +228,7 @@ class QueryService : Service() {
             Pair(false, "responseCode:$responseCode")
         }
         handle.sendMessage(handle.obtainMessage().apply {
+            what = 10010
             obj = flowStr
         })
         isInNetwork = false
