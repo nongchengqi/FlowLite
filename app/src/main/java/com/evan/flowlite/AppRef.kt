@@ -76,4 +76,5 @@ object AppPref: PreferenceInterface {
   var cookie by bindString("user_cookie","")
   var usedFlow by bindString("used_flow","0")
   var autoUpdate by bindBool("auto_update",false)
+  var userMoveIds by bindString("user_move_ids","")
 }

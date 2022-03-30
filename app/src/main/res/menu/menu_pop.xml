@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/add"
+        android:title="设置为免费流量"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/remove"
+        android:title="设置为套餐流量"
+        app:showAsAction="always"/>
+
+</menu>

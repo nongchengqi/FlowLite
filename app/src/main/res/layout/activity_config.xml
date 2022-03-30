@@ -28,6 +28,35 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/powerLayout"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
+            android:text="忽略电池优化" />
+        <TextView
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_marginStart="4dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:text="(不管，除非后台无法及时刷新)" />
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/powerOpt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -69,7 +98,8 @@
             android:layout_height="wrap_content"
             android:maxHeight="200dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            tools:text="12345" />
+            tools:text="12345"
+            />
     </LinearLayout>
 
     <LinearLayout
@@ -90,7 +120,8 @@
             android:layout_height="wrap_content"
             android:maxHeight="200dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Small"
-            tools:text="12345" />
+            tools:text="12345"
+            />
     </LinearLayout>
 
     <Button

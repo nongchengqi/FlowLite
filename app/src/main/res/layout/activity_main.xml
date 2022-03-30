@@ -85,7 +85,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                                android:text="套餐" />
+                                android:text="通用使用" />
 
                             <TextView
                                 android:id="@+id/resUsedTv"
@@ -107,7 +107,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:textAppearance="@style/TextAppearance.AppCompat.Light.Widget.PopupMenu.Small"
-                                android:text="剩余" />
+                                android:text="通用剩余" />
 
                             <TextView
                                 android:id="@+id/resRemindTv"
