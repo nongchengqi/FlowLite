@@ -1,6 +1,7 @@
 package com.evan.flowlite
 
 import android.app.Application
+import com.evan.flowlite.utils.CaptureUtil
 
 class App : Application() {
     companion object{
@@ -10,5 +11,6 @@ class App : Application() {
     override fun onCreate() {
         super.onCreate()
         mApplication = this
+        CaptureUtil.init(this)
     }
 }
