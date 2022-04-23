@@ -425,13 +425,14 @@ object RequestTimer {
                         AppPref.usedFlowClearTime = System.currentTimeMillis()
                     }
                 }
-
+                var useData = 0f
                 if (mFlowInfoBean != null && (bean.useResFlow.toFloatOrNull()
                         ?: 0f) > (mFlowInfoBean?.useResFlow?.toFloatOrNull() ?: 0f)
                 ) {
+                    useData = (bean.useResFlow.toFloatOrNull() ?: 0f) - (mFlowInfoBean?.useResFlow?.toFloatOrNull() ?: 0f)
                     NotificationHelper.showNormalNotification(
                         title = "通用流量发生消耗",
-                        desc = "本次刷新期间，您的通用流量消耗了${(bean.useResFlow.toFloatOrNull() ?: 0f) - (mFlowInfoBean?.useResFlow?.toFloatOrNull() ?: 0f)}Mb",
+                        desc = "本次刷新期间，您的通用流量消耗了$useData Mb",
                         smallIcon = R.mipmap.ic_launcher_round,
                         clickIntent = Intent(App.getApp(), MainActivity::class.java),
                         bigIcon = null
@@ -462,6 +463,17 @@ object RequestTimer {
                         )
                     } | 跳：${ParseUtil.parseFlowUnit(jump)}", "更新：${getCurrentTime()}$ipInfoStr"
                 )
+
+                //判断刷新时间内使用的通用流量是否超过10mb，超过则关闭数据
+                if (useData >= 10f) {
+                    LogUtil.log(msg = "流量消耗超过使用阈值，关闭数据")
+                    SZKUtil.runCmd("svc data disable").let {
+                        LogUtil.log(msg = "关闭情况$it")
+                    }
+                } else {
+                    LogUtil.log(msg = "流量消耗未超过使用阈值")
+                }
+                LogUtil.log(msg = "消耗流量$useData")
 
                 (FloatWindowManager.getFirstView() as? FloatView)?.updateView(bean.useTotalFlow,bean.useResFlow,bean.useMlFlow,bean.remindFlow,jump)
             } catch (e: Exception) {

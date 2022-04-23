@@ -5,6 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.ServiceConnection
+import android.content.pm.PackageManager
 import android.net.VpnService
 import android.os.Build
 import android.os.Bundle
@@ -31,14 +32,17 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.lifecycle.lifecycleScope
 import com.evan.flowlite.*
 import com.evan.flowlite.float.FloatWindowManager
-import com.evan.flowlite.utils.AppPref
-import com.evan.flowlite.utils.CaptureUtil
-import com.evan.flowlite.utils.LogUtil
-import com.evan.flowlite.utils.RequestTimer
+import com.evan.flowlite.utils.*
 
 import kotlinx.coroutines.launch
+import rikka.shizuku.Shizuku
+import java.io.InputStreamReader
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Shizuku.OnRequestPermissionResultListener {
+
+    private val REQUEST_CODE = 1000
+    private val REQUEST_PERMISSION_RESULT_LISTENER: Shizuku.OnRequestPermissionResultListener = this
+
     private var mBinder: FlowBinder? = null
     private val mConn = object : ServiceConnection {
         override fun onServiceConnected(name: ComponentName?, service: IBinder?) {
@@ -166,6 +170,9 @@ class MainActivity : AppCompatActivity() {
                FloatWindowManager.showView(this@MainActivity)
            }
         }
+        // 添加shizuku请求回调，并且判断是否拥有权限，为拥有的话进行申请权限
+        Shizuku.addRequestPermissionResultListener(this)
+        if (!SZKUtil.checkPermission()) Shizuku.requestPermission(REQUEST_CODE)
     }
 
     private fun capture(){
@@ -235,6 +242,16 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CaptureUtil.START_VPN_SERVICE_REQUEST_CODE && resultCode == RESULT_OK) {
             capture()
+        }
+    }
+
+    //shizuku回调方法
+    override fun onRequestPermissionResult(requestCode: Int, grantResult: Int) {
+        if (grantResult == 0) {
+            LogUtil.log(msg = "shizuku权限申请成功")
+        } else {
+            LogUtil.log(msg = "shizuku权限申请失败")
+            Toast.makeText(this, "Shizuku权限申请失败", Toast.LENGTH_SHORT).show()
         }
     }
 }
