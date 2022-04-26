@@ -14,16 +14,21 @@ class SZKUtil {
             if (Shizuku.isPreV11()) {
                 return false
             }
-            return when {
-                Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED -> {
-                    true
+            try {
+                return when {
+                    Shizuku.checkSelfPermission() == PackageManager.PERMISSION_GRANTED -> {
+                        true
+                    }
+                    Shizuku.shouldShowRequestPermissionRationale() -> {
+                        false
+                    }
+                    else -> {
+                        false
+                    }
                 }
-                Shizuku.shouldShowRequestPermissionRationale() -> {
-                    false
-                }
-                else -> {
-                    false
-                }
+            } catch (e: IllegalStateException) {
+                e.printStackTrace()
+                return false
             }
         }
 

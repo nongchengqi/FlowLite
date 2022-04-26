@@ -172,7 +172,9 @@ class MainActivity : AppCompatActivity(), Shizuku.OnRequestPermissionResultListe
         }
         // 添加shizuku请求回调，并且判断是否拥有权限，为拥有的话进行申请权限
         Shizuku.addRequestPermissionResultListener(this)
-        if (!SZKUtil.checkPermission()) Shizuku.requestPermission(REQUEST_CODE)
+        if (SZKUtil.checkPermission()) {
+            Shizuku.requestPermission(REQUEST_CODE)
+        }
     }
 
     private fun capture(){

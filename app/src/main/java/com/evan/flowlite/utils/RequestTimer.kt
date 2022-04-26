@@ -465,7 +465,7 @@ object RequestTimer {
                 )
 
                 //判断刷新时间内使用的通用流量是否超过10mb，超过则关闭数据
-                if (useData >= 10f) {
+                if (useData >= 5f) {
                     LogUtil.log(msg = "流量消耗超过使用阈值，关闭数据")
                     SZKUtil.runCmd("svc data disable").let {
                         LogUtil.log(msg = "关闭情况$it")
