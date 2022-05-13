@@ -1,10 +1,14 @@
 # FlowLite
 
+最新版下载链接：https://vkceyugu.cdn.bspapp.com/VKCEYUGU-02c40445-b5cc-470a-8632-1d38855dcc18/8cf86fd3-4e92-4d69-afc5-b9dd4b1738ed.apk
+
 #### 介绍
 简单的使用原生实现联通流量监控查询
+因为内置抓包模块涉及部分商用代码暂不公开，公开代码中屏蔽了这个功能。
+需要的同学可以去我仓库：https://github.com/nongchengqi/NetWorkPacketCapture 查看抓包核心代码
 
 不使用任何三方库
-
+2022.5.13 增加悬浮窗ip和更新时间展示，分别使用[IP]和[时]格式表示
 2022.4.12 重构更新，基本支持套餐识别。
 
 支持悬浮窗、支持小组件
