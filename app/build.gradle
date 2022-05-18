@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.evan.flowlite"
-        minSdk 21
+        minSdk 23
         targetSdk 31
         versionCode 1
         versionName "1.0"
@@ -38,6 +38,14 @@ android {
     }
     kotlinOptions {
         jvmTarget = '1.8'
+    }
+
+    dependencies {
+        def shizuku_version = '12.1.0'
+        implementation "dev.rikka.shizuku:api:$shizuku_version"
+
+        // Add this line if you want to support Shizuku
+        implementation "dev.rikka.shizuku:provider:$shizuku_version"
     }
 }
 
